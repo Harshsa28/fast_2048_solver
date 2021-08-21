@@ -1,0 +1,23 @@
+convert 4x4 2048 board to 64 bit integer representation and vice-versa
+
+Try to use an array as much as you can and avoid a hash table. Hash tables lookups take way more time than array lookups.
+
+massive array for going left/right/top/bottom
+
+create functions for going left/right/top/bottom
+
+add random 2 with 0.9 probability and 4 with 0.1
+
+adding random might take a lot of time because I need to identify non-used spaces. I could implement a loop doing randoms until it finds a place with empty spot. But better strategy is to store this 64-bit integer in a hash table with all possible random allocations on that specific board and then selecting one of those at complete random (no 0.9/0.1). But this strategy can also be inefficient because the total number of boards are very very high. I could make it efficient by converting board to a new board where every "used" entry is exactly 2. Or I can also create a new integer for every board with 2 at used-places and 0 at non-used places. And then create an array with such representations connected with a lot of ints where random 2/4 is added to the given integer.
+
+For 64 bit integer representation of the board, 0 : empty, 1 : 2^1 = 2, 2 : 2^2 = 4, ..., 15 : 2^15 = 32768. We won't allow going over 32768 - when 32768 happens, we end the game and declare victory.
+
+optimize multiplication and exponentiation and log_base_2
+
+for (i,j) in board, add integer representation by (2^(60 - 16*i - 4*j) * log_2(board[i][j]))
+
+is num.leading_zeros() fast?
+
+is try_into().unwrap() slowing down code?
+
+figure out the mess of all these types - u32, u64, i32....
