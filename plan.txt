@@ -21,3 +21,5 @@ is num.leading_zeros() fast?
 is try_into().unwrap() slowing down code?
 
 figure out the mess of all these types - u32, u64, i32....
+
+is making a variable costly? compared to using it without a name?
