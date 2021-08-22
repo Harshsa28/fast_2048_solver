@@ -62,49 +62,17 @@ fn right_left(int_rep: u64, right_or_left: bool) -> u64 {
     return right_left;
 }
 
-
 pub fn right(int_rep : u64) -> u64 {
-    let mut right: u64 = 0;
-    let base: u64 = 2;
-    
-    for i in 0..4 {
-        let part: u16 = (int_rep >> (16*(3-i))) as u16;
-        let power: u32 = (16*(3-i)).try_into().unwrap();
-        
-        let mut row: [u64; 4] = int_to_row(part);
-        row_right(&mut row);
-        let row_int: u64 = row_to_int(&row) as u64;
-        
-        right += base.pow(power)*(row_int);
-    }
-    
-    return right;
+    return right_left(int_rep, true);
 }
 
-// rev -> right -> rev back
 pub fn left(int_rep : u64) -> u64 {
-    let mut left: u64 = 0;
-    let base: u64 = 2;
-    
-    for i in 0..4 {
-        let part: u16 = (int_rep >> (16*(3-i))) as u16;
-        let power: u32 = (16*(3-i)).try_into().unwrap();
-        
-        let mut row: [u64; 4] = int_to_row(part);
-        row.reverse();
-        row_right(&mut row);
-        row.reverse();
-        let row_int: u64 = row_to_int(&row) as u64;
-        
-        left += base.pow(power)*(row_int);
-    }
-    
-    return left;
+    return right_left(int_rep, false);
 }
 
-
-pub fn up(int_rep : u64) -> u64 {
-    let mut up: u64 = 0;
+// true if up, false if down
+fn up_down(int_rep: u64, up_or_down: bool) -> u64 {
+    let mut up_down: u64 = 0;
     let base: u64 = 2;
     
     for i in 0..4 {
@@ -121,9 +89,13 @@ pub fn up(int_rep : u64) -> u64 {
         }
         
         let mut row: [u64; 4] = int_to_row(part);
-        row.reverse();
+        if up_or_down {
+            row.reverse();
+        }
         row_right(&mut row);
-        row.reverse();
+        if up_or_down {
+            row.reverse();
+        }
         let mut row_int: u16 = row_to_int(&row);
         
         for j in 0..4 {
@@ -133,19 +105,19 @@ pub fn up(int_rep : u64) -> u64 {
             let bit_shift_by: u16 = (12-(4*j)).try_into().unwrap();
             let bits4: u64 = ((row_int >> bit_shift_by) & 15u16) as u64;
             
-            up += exp*bits4;
+            up_down += exp*bits4;
         }
     }
     
-    return up;
-}
-
-pub fn down(x : u64) -> u64 {
-    
-    x
+    return up_down;
 }
 
 
-fn main () {
-    
+pub fn up(int_rep : u64) -> u64 {
+    return up_down(int_rep, true);
 }
+
+pub fn down(int_rep : u64) -> u64 {
+    return up_down(int_rep, false);
+}
+
