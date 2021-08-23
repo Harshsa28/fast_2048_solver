@@ -25,10 +25,3 @@ figure out the mess of all these types - u32, u64, i32....
 is making a variable costly? compared to using it without a name?
 
 "as" vs "into" vs "try_into().unwrap()"
-
-
-
-TODO: solve the problem of going to left on [0,0,32768,32768], which gives [65536, 0, 0, 0] which is not something we want to allow. Having a 65536 also creates overflow problems.
-
-TODO: investigate why ul caused the above problem and not dr.
-Solved: Very interesting reason. The only reason I got overflow was because I was doing 2^(12-4*i)*log(val) where problematic val was 65536. With dr, 65536 was never on index i=0. And so we never had 2^12*16 = 65536 in u16 var with dr. But with ul, we had 65536 at index i=0, and so we had 2^(12-4*0)*16 = 65536 in a u16 which caused overflow. I was very lucky to have caught this bug in this way.
