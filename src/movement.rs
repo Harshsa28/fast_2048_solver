@@ -1,14 +1,9 @@
-// mod convert;
-// use convert::{row_to_int, int_to_row};
-
 use super::{int_to_row, row_to_int};
 
 use std::convert::TryInto;
 
-
+// TODO: what to do if we have 2 "32768" which will make a "65536"?
 pub fn row_right(mut board_row: &mut [u64; 4]){
-    // let mut board_row: [u64; 4] = int_to_row(x);
-    // println!("initial board_row is {:?}", board_row);
     let mut cmp: u64 = 0;
     let mut free_spot = 3;
     let mut match_spot = 4;
@@ -32,9 +27,6 @@ pub fn row_right(mut board_row: &mut [u64; 4]){
             }
         }
     }
-    // println!("final board_row is {:?}", board_row);
-    // return row_to_int(&board_row);
-    // return board_row;
 }
 
 // true if right, false if left
@@ -61,6 +53,31 @@ fn right_left(int_rep: u64, right_or_left: bool) -> u64 {
     
     return right_left;
 }
+
+
+pub fn right_left_16b(int_rep: u16, right_or_left: bool) -> u16 {
+    let mut right_left: u16 = 0;
+    let mut row: [u64; 4] = int_to_row(int_rep);
+    let store = row;
+    if row.contains(&65536u64) {
+        println!("row contains 65536, int_rep is {} and row is {:?} and right_or_left is {}", int_rep, row, right_or_left);
+    }
+    
+    if !right_or_left {
+        row.reverse();
+    }
+    row_right(&mut row);
+    if !right_or_left {
+        row.reverse();
+    }
+    if row.contains(&65536u64) {
+        println!("second row contains 65536, row_before is {:?}, int_rep is {} and second row is {:?} and right_or_left is {}", store, int_rep, row, right_or_left);
+    }
+    right_left = row_to_int(&row);
+    
+    return right_left;
+}
+
 
 pub fn right(int_rep : u64) -> u64 {
     return right_left(int_rep, true);

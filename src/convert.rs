@@ -42,6 +42,9 @@ pub fn int_to_row (mut int_rep: u16) -> [u64; 4] {
         }
         else {
             row[i] = base.pow(quotient.into());
+            if row[i] == 65536u64 {
+                println!("int_to_row generated 65536, row[i] is {} and int_rep is {} and i is {} and power is {} and factor is {} and quotient is {} and remainder is {}", row[i], int_rep, i, power, factor, quotient, remainder);
+            }
         }
         int_rep = remainder;
     }
