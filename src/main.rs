@@ -4,7 +4,7 @@ mod movement;
 use movement::{right, left, up, down, row_right, right_left_16b};
 
 mod convert;
-use convert::{int_to_row, row_to_int, board_to_int, int_to_board};
+use convert::{int_to_row, row_to_int, board_to_int, int_to_board, log};
 
 mod movement_table;
 use movement_table::{make_dr_table, make_ul_table};
@@ -33,15 +33,30 @@ fn main() {
                                 [4,0,0,0]];
     
     let mut int_rep: u64 = board_to_int(&board);
-    let board = int_to_board(int_rep);
+    let mut board = int_to_board(int_rep);
+    println!("initial board is :");
+    pretty_print(&board);
     
     let mut dr_table: [u16; 65536] = [0; 65536];
     make_dr_table(&mut dr_table);
     
+    
+    
+    
     // println!("dr_table is: {:?}", dr_table);
     
-    // let mut ul_table: [u16; 65536] = [0; 65536];
-    // make_ul_table(&mut ul_table);
+    let mut ul_table: [u16; 65536] = [0; 65536];
+    make_ul_table(&mut ul_table);
+    
+    
+    // for i in 0..4 {
+    //     let num: u16 = row_to_int(&board[i]);
+    //     let left = ul_table[num as usize];
+    //     board[i] = int_to_row(left);
+    // }
+    
+    // println!("left board is :");
+    // pretty_print(&board);
     
     
     // println!("initial board is :", );

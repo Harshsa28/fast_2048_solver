@@ -4,7 +4,8 @@ use std::convert::TryInto;
 
 
 
-fn log (num: u64) -> u16 {
+pub fn log (num: u64) -> u16 {
+    assert!(num != 0);
     let log: u16 = (64 - num.leading_zeros() - 1).try_into().unwrap();
     return log;
 }

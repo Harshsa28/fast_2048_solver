@@ -2,7 +2,6 @@ use super::{int_to_row, row_to_int};
 
 use std::convert::TryInto;
 
-// TODO: what to do if we have 2 "32768" which will make a "65536"?
 pub fn row_right(mut board_row: &mut [u64; 4]){
     let mut cmp: u64 = 0;
     let mut free_spot = 3;
@@ -10,6 +9,13 @@ pub fn row_right(mut board_row: &mut [u64; 4]){
     for i in (0..4).rev() {
         if board_row[i] != 0 {
             if board_row[i] == cmp {
+                if cmp == 32768u64 {
+                    board_row[0] = 0;
+                    board_row[1] = 0;
+                    board_row[2] = 0;
+                    board_row[3] = 0;
+                    return;
+                }
                 board_row[match_spot] = 2*cmp;
                 match_spot = 4;
                 board_row[i] = 0;

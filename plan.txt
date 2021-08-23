@@ -25,3 +25,7 @@ figure out the mess of all these types - u32, u64, i32....
 is making a variable costly? compared to using it without a name?
 
 "as" vs "into" vs "try_into().unwrap()"
+
+
+Question : what to do if we have 2 "32768" which will make a "65536"?
+Answer : the array doesn't have any "15" in the left side, i.e., array doesn't have any "32768" on the left side, only on the right side. When we reach "32768" we call it victory. If we allow multiple "32768" on the left side, what do we do on the right side for that case? We can put all 0s, considering that we will always have some numbers in the game (we start by 2 numbers by default). So we can do all 0s on the right side when we reach "65536".
