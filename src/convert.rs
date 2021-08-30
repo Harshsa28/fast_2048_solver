@@ -1,7 +1,10 @@
 use std::convert::TryInto;
 
 
-
+/*
+This module is used to convert between int-row and vice-versa; AND between int-board and vice-versa.
+It is used for creating dr_table and ul_table and for debugging and for human reading.
+*/
 
 
 pub fn log (num: u64) -> u16 {
