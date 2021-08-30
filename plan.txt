@@ -58,6 +58,8 @@ TODO: optimize fast_up and fast_down a lot more. There is a sparse-but-very-larg
 
 Having a complete 32 bit array (i.e., calc 2 rows at the same time) might be another optimization.
 
-idea: 63-60 (col1, ele1); 59-56 (col2, ele1); 31-28 (col1, ele3); 27-24 (col2, ele3); 
+idea for up/down: 
+63-60 (col1, ele1); 59-56 (col2, ele1); 31-28 (col1, ele3); 27-24 (col2, ele3); 47-44 (col1, ele2); 43-40 (col2, ele2); 15-12 (col1, ele4); 11-8 (col2, ele4) - 32 bits
+extracting col1 (16 bits): 4 bits at a time; might need to zero out everything else.
 
 complete 32-bit array idea is brilliant. All 4 operations will be possible in 4 bit shifts. Should be very very fast.

@@ -51,9 +51,10 @@ fn main() {
     let mut ul_table: [u16; 65536] = [0; 65536];
     make_ul_table(&mut ul_table);
     
-    for i in 0..100_000_000 {
-        fast_up(int_rep, &ul_table);
-    }
+    
+    // for i in 0..100_000_000 {
+    //     fast_up(int_rep, &ul_table);
+    // }
     
     // println!("initial board is :");
     // pretty_print(&board);
