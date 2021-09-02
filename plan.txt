@@ -51,7 +51,6 @@ Answer: They both are almost the same speed, so choose what's convenient.
 
 ^ 60 means from 63-60; ...
 
-
 keyword "as" converted by removing data without any error.
 
 TODO: optimize fast_up and fast_down a lot more. There is a sparse-but-very-large-array problem.
@@ -63,3 +62,11 @@ idea for up/down:
 extracting col1 (16 bits): 4 bits at a time; might need to zero out everything else.
 
 complete 32-bit array idea is brilliant. All 4 operations will be possible in 4 bit shifts. Should be very very fast.
+
+Question: does calling a function take time? I am talking about v.v.small amount of time. Also, check "inline" or something where the compiler puts called func code in caller's code.
+
+Problem: complete u32 bit array is impossible because it will need 64 GBs of RAM - not possible for me. But a cleverly designed complete 24-bit array might work with heap storage. Problem there is making "u24" work. For "u24" I can use u32 with first 8 bits as 0. This is because I don't want to use a rare type "u24" which may not be optimized as well as "u32" will be - considering computers can handle 32 bits a lot more naturally than 24 bits.
+
+I will use it as : 63-60; 31-28; 8 0 bits; 47-44; 15-12 - this takes 24 bits. Method is : extract 63-60..47-44 with all other 0s; similarly, extract 31-28..15-12 with all other 0s. Bit shift them properly and add.
+
+I will worry about these optimizations later on. Right now, I am sticking to 16 bits for all.

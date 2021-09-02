@@ -4,10 +4,6 @@ use super::int_to_board;
 This module is used for fast movement using dr_table and ul_table.
 */
 
-
-
-
-
 pub fn fast_right(int_rep: u64, dr_table: &[u16; 65536]) -> u64 {
     let mut right: u64 = 0;
 
@@ -42,43 +38,23 @@ use bit shifting and count on 0s
 */
 
 pub fn fast_up(int_rep: u64, ul_table: &[u16; 65536]) -> u64 {
-    
-    // println!("in fastup, int_rep is :");
-    // pretty_print(&int_to_board(int_rep));
     let mut up: u64 = 0;
     
-    // let first: u16 = (int_rep >> 48) as u16 + (int_rep >> 36) as u16 + (int_rep >> 24) as u16 + (int_rep >> 12) as u16;
-    // let second: u16 = (int_rep >> 44) as u16 + (int_rep >> 32) as u16 + (int_rep >> 20) as u16 + (int_rep >> 8) as u16;
-    // let third: u16 = (int_rep >> 40) as u16 + (int_rep >> 28) as u16 + (int_rep >> 16) as u16 + (int_rep >> 4) as u16;
-    // let fourth: u16 = (int_rep >> 36) as u16 + (int_rep >> 24) as u16 + (int_rep >> 12) as u16 + (int_rep >> 0) as u16;
+    let mut first: u64 = int_rep & 17294086455919964160; // 1111000000000000111100000000000011110000000000001111000000000000
+    first = ul_table[((first >> 48) + (first >> 36) + (first >> 24) + (first >> 12)) as u16 as usize] as u64;
+    up += (((first << 48) + (first << 36) + (first << 24) + (first << 12)) & 17294086455919964160);
     
-    let first: u64 = int_rep & 17294086455919964160; // 1111000000000000111100000000000011110000000000001111000000000000
-    // println!("first is :");
-    // pretty_print(&int_to_board(first));
-    up += ul_table[((first >> 48) as u16 + (first >> 36) as u16 + (first >> 24) as u16 + (first >> 12) as u16) as usize] as u64;
-    // println!("up is :");
-    // pretty_print(&int_to_board(up));
+    let mut second: u64 = int_rep & 1080880403494997760; // 0000111100000000000011110000000000001111000000000000111100000000
+    second = ul_table[((second >> 44) + (second >> 32) + (second >> 20) + (second >> 8)) as u16 as usize] as u64;
+    up += (((second << 44) + (second << 32) + (second << 20) + (second << 8)) & 1080880403494997760);
     
-    let second: u64 = int_rep & 1080880403494997760; // 0000111100000000000011110000000000001111000000000000111100000000
-    // println!("second is :");
-    // pretty_print(&int_to_board(second));
-    up += ul_table[((second >> 44) as u16 + (second >> 32) as u16 + (second >> 20) as u16 + (second >> 8) as u16) as usize] as u64;
-    // println!("up is :");
-    // pretty_print(&int_to_board(up));
+    let mut third: u64 = int_rep & 67555025218437360; // 0000000011110000000000001111000000000000111100000000000011110000
+    third = ul_table[((third >> 40) + (third >> 28) + (third >> 16) + (third >> 4)) as u16 as usize] as u64;
+    up += (((third << 40) + (third << 28) + (third << 16) + (third << 4)) & 67555025218437360);
     
-    let third: u64 = int_rep & 67555025218437360; // 0000000011110000000000001111000000000000111100000000000011110000
-    // println!("third is :");
-    // pretty_print(&int_to_board(third));
-    up += ul_table[((third >> 40) as u16 + (third >> 28) as u16 + (third >> 16) as u16 + (third >> 4) as u16) as usize] as u64;
-    // println!("up is :");
-    // pretty_print(&int_to_board(up));
-    
-    let fourth: u64 = int_rep & 4222189076152335; // 0000000000001111000000000000111100000000000011110000000000001111
-    // println!("fourth is :");
-    // pretty_print(&int_to_board(fourth));
-    up += ul_table[((fourth >> 36) as u16 + (fourth >> 24) as u16 + (fourth >> 12) as u16 + (fourth >> 0) as u16) as usize] as u64;
-    // println!("up is :");
-    // pretty_print(&int_to_board(up));
+    let mut fourth: u64 = int_rep & 4222189076152335; // 0000000000001111000000000000111100000000000011110000000000001111
+    fourth = ul_table[((fourth >> 36) + (fourth >> 24) + (fourth >> 12) + (fourth >> 0)) as u16 as usize] as u64;
+    up += (((fourth << 36) + (fourth << 24) + (fourth << 12) + (fourth << 0)) & 4222189076152335);
     
     return up;
 }
@@ -86,22 +62,21 @@ pub fn fast_up(int_rep: u64, ul_table: &[u16; 65536]) -> u64 {
 pub fn fast_down(int_rep: u64, dr_table: &[u16; 65536]) -> u64 {
     let mut down: u64 = 0;
     
-    // let first: u16 = (int_rep >> 48) as u16 + (int_rep >> 36) as u16 + (int_rep >> 24) as u16 + (int_rep >> 12) as u16;
-    // let second: u16 = (int_rep >> 44) as u16 + (int_rep >> 32) as u16 + (int_rep >> 20) as u16 + (int_rep >> 8) as u16;
-    // let third: u16 = (int_rep >> 40) as u16 + (int_rep >> 28) as u16 + (int_rep >> 16) as u16 + (int_rep >> 4) as u16;
-    // let fourth: u16 = (int_rep >> 36) as u16 + (int_rep >> 24) as u16 + (int_rep >> 12) as u16 + (int_rep >> 0) as u16;
+    let mut first: u64 = int_rep & 17294086455919964160; // 1111000000000000111100000000000011110000000000001111000000000000
+    first = dr_table[((first >> 48) + (first >> 36) + (first >> 24) + (first >> 12)) as u16 as usize] as u64;
+    down += (((first << 48) + (first << 36) + (first << 24) + (first << 12)) & 17294086455919964160);
     
-    let first: u64 = int_rep & 17294086455919964160; // 1111000000000000111100000000000011110000000000001111000000000000
-    down += dr_table[((first >> 48) as u16 + (first >> 36) as u16 + (first >> 24) as u16 + (first >> 12) as u16) as usize] as u64;
+    let mut second: u64 = int_rep & 1080880403494997760; // 0000111100000000000011110000000000001111000000000000111100000000
+    second = dr_table[((second >> 44) + (second >> 32) + (second >> 20) + (second >> 8)) as u16 as usize] as u64;
+    down += (((second << 44) + (second << 32) + (second << 20) + (second << 8)) & 1080880403494997760);
     
-    let second: u64 = int_rep & 1080880403494997760; // 0000111100000000000011110000000000001111000000000000111100000000
-    down += dr_table[((second >> 44) as u16 + (second >> 32) as u16 + (second >> 20) as u16 + (second >> 8) as u16) as usize] as u64;
+    let mut third: u64 = int_rep & 67555025218437360; // 0000000011110000000000001111000000000000111100000000000011110000
+    third = dr_table[((third >> 40) + (third >> 28) + (third >> 16) + (third >> 4)) as u16 as usize] as u64;
+    down += (((third << 40) + (third << 28) + (third << 16) + (third << 4)) & 67555025218437360);
     
-    let third: u64 = int_rep & 67555025218437360; // 0000000011110000000000001111000000000000111100000000000011110000
-    down += dr_table[((third >> 40) as u16 + (third >> 28) as u16 + (third >> 16) as u16 + (third >> 4) as u16) as usize] as u64;
-    
-    let fourth: u64 = int_rep & 4222189076152335; // 0000000000001111000000000000111100000000000011110000000000001111
-    down += dr_table[((fourth >> 36) as u16 + (fourth >> 24) as u16 + (fourth >> 12) as u16 + (fourth >> 0) as u16) as usize] as u64;
+    let mut fourth: u64 = int_rep & 4222189076152335; // 0000000000001111000000000000111100000000000011110000000000001111
+    fourth = dr_table[((fourth >> 36) + (fourth >> 24) + (fourth >> 12) + (fourth >> 0)) as u16 as usize] as u64;
+    down += (((fourth << 36) + (fourth << 24) + (fourth << 12) + (fourth << 0)) & 4222189076152335);
     
     return down;
 }
