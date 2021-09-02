@@ -70,3 +70,77 @@ Problem: complete u32 bit array is impossible because it will need 64 GBs of RAM
 I will use it as : 63-60; 31-28; 8 0 bits; 47-44; 15-12 - this takes 24 bits. Method is : extract 63-60..47-44 with all other 0s; similarly, extract 31-28..15-12 with all other 0s. Bit shift them properly and add.
 
 I will worry about these optimizations later on. Right now, I am sticking to 16 bits for all.
+
+Time:
+    cargo clean && time cargo r
+
+    Just making the 2 arrays
+    real    0m7.525s
+    user    0m21.337s
+    sys     0m1.809s
+    
+    100 million fast_right
+    real    0m10.309s
+    user    0m24.518s
+    sys     0m1.827s
+    
+    100 mil fast_up,down,right,left
+    real    0m22.896s
+    user    0m38.296s
+    sys     0m1.966s
+    
+    100 mil fast_left
+    real    0m11.630s
+    user    0m26.760s
+    sys     0m1.837s
+    
+    100 mil fast_up
+    real    0m14.418s
+    user    0m29.473s
+    sys     0m1.954s
+    
+    
+    
+    
+    
+    
+    time cargo r
+    100 mil fast_right
+    real    0m3.645s
+    user    0m3.632s
+    sys     0m0.093s
+    
+    100 mil fast_left
+    real    0m3.740s
+    user    0m3.718s
+    sys     0m0.104s
+    
+    100 mil fast_up
+    real    0m6.468s
+    user    0m6.448s
+    sys     0m0.020s
+    
+    100 mil fast_down
+    real    0m6.598s
+    user    0m6.586s
+    sys     0m0.012s
+    
+    100 mil fast_up,down,right,left
+    real    0m13.089s
+    user    0m13.072s
+    sys     0m0.017s
+    
+    100 mil fast_right,left
+    real    0m4.059s
+    user    0m4.054s
+    sys     0m0.005s
+    
+    100 mil fast_right and 100 mil fast_left
+    real    0m5.892s
+    user    0m5.871s
+    sys     0m0.021s
+    
+    100 mil; just a loop
+    real    0m2.007s
+    user    0m1.986s
+    sys     0m0.021s

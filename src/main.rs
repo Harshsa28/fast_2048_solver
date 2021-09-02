@@ -60,7 +60,14 @@ fn main() {
     
     
     // for i in 0..100_000_000 {
-    //     fast_up(int_rep, &ul_table);
+        // fast_up(int_rep, &ul_table);
+        // fast_down(int_rep, &dr_table);
+        // fast_right(int_rep, &dr_table);
+        // fast_left(int_rep, &ul_table);
+    // }
+    
+    // for i in 0..100_000_000 {
+    //     int_rep = fast_left(int_rep, &ul_table);
     // }
     
     // println!("initial board is :");
@@ -90,31 +97,31 @@ fn main() {
     // pretty_print(&board);
     
     
-    println!("initial board is :", );
-    pretty_print(&board);
+    // println!("initial board is :", );
+    // pretty_print(&board);
     
-    loop {
-        let stdin = stdin();
-        for c in stdin.keys() {
-            match c.unwrap() {
-                Key::Right => {
-                    int_rep = fast_right(int_rep, &dr_table);
-                },
-                Key::Left => {
-                    int_rep = fast_left(int_rep, &ul_table);
-                },
-                Key::Up => {
-                    int_rep = fast_up(int_rep, &ul_table);
-                },
-                Key::Down => {
-                    int_rep = fast_down(int_rep, &dr_table);
-                },
-                _ => {
-                    println!("updated board is :");
-                    let board = int_to_board(int_rep);
-                    pretty_print(&board);
-                },
-            }
-        }
-    }
+    // loop {
+    //     let stdin = stdin();
+    //     for c in stdin.keys() {
+    //         match c.unwrap() {
+    //             Key::Right => {
+    //                 int_rep = fast_right(int_rep, &dr_table);
+    //             },
+    //             Key::Left => {
+    //                 int_rep = fast_left(int_rep, &ul_table);
+    //             },
+    //             Key::Up => {
+    //                 int_rep = fast_up(int_rep, &ul_table);
+    //             },
+    //             Key::Down => {
+    //                 int_rep = fast_down(int_rep, &dr_table);
+    //             },
+    //             _ => {
+    //                 println!("updated board is :");
+    //                 let board = int_to_board(int_rep);
+    //                 pretty_print(&board);
+    //             },
+    //         }
+    //     }
+    // }
 }
